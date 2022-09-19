@@ -19,21 +19,33 @@ public class OldMutualFinance extends Base
         }
         catch (Exception e)
         {
-            log("Failed to navigate to old mutual branch", "ERROR",  "text");
             Assert.fail("\n[ERROR] Failed to navigate to old mutual branch  - - " + e.getMessage());
         }
     }
-    public void validatePageTitle()
-    {
-        String pageTitle = driver.getTitle();
-        Assert.assertEquals(webProp.PageName(), pageTitle);
-        log("Successfully validated the title :"+pageTitle, "ERROR",  "text");
+    public void validatePageTitle()  {
+        try {
+            String pageTitle = driver.getTitle();
+            Assert.assertEquals(webProp.PageName(), pageTitle);
+            seleniumUtility.takeSnapShot(driver, "ValidationScreens/HomePage.png");
+        }
+        catch (Exception e)
+        {
+            Assert.fail("\n[ERROR] Failed to validate  - - " + e.getMessage());
+        }
     }
 
     public void ValidatePersonalLoanPage()
     {
+        try
+        {
         String bannerText =  seleniumUtility.extractTextByXpath(webProp.PersonalLoanBanner(), "Failed to get text");
         Assert.assertTrue(bannerText.contains("Personal loan"));
+        seleniumUtility.takeSnapShot(driver, "ValidationScreens/PersonalLoanPage.png");
+        }
+        catch (Exception e)
+        {
+            Assert.fail("\n[ERROR] Failed to validate personal loan  - - " + e.getMessage());
+        }
     }
 
     public void CalculateLoan()
@@ -62,16 +74,24 @@ public class OldMutualFinance extends Base
     }
     public void ValidateCalculationResults()
     {
-        seleniumUtility.waitForPageToLoad();
+        try {
+            seleniumUtility.waitForPageToLoad();
 
-        String repaymentResults =  seleniumUtility.extractTextByXpath(webProp.PersonalLoanRepaymentResults(), "Failed to get text");
-        System.out.println("Repayment = "+repaymentResults);
-        String[] stringArray = null;
-        stringArray = repaymentResults.split(" - ");
-        System.out.println("min = "+stringArray[0]);
-        System.out.println("max = "+stringArray[1]);
-        Assert.assertEquals(webProp.MinimumRepayment(),stringArray[0]);
-        Assert.assertEquals(webProp.MaximumRepayment(),stringArray[1]);
+            String repaymentResults = seleniumUtility.extractTextByXpath(webProp.PersonalLoanRepaymentResults(), "Failed to get text");
+            System.out.println("Repayment = " + repaymentResults);
+            String[] stringArray = null;
+            stringArray = repaymentResults.split(" - ");
+            System.out.println("min = " + stringArray[0]);
+            System.out.println("max = " + stringArray[1]);
+            Assert.assertEquals(webProp.MinimumRepayment(), stringArray[0]);
+            Assert.assertEquals(webProp.MaximumRepayment(), stringArray[1]);
+
+            seleniumUtility.takeSnapShot(driver, "ValidationScreens/CalculationResults.png");
+        }
+        catch (Exception e)
+        {
+            Assert.fail("\n[ERROR] Failed to validate calculations - - " + e.getMessage());
+        }
     }
 
     public void NavigateToPersonalLoans()

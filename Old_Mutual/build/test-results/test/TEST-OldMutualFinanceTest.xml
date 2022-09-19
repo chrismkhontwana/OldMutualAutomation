@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="OldMutualFinanceTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-09-19T16:06:48" hostname="NB3K5QJM2" time="39.627">
+<testsuite name="OldMutualFinanceTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-09-19T19:11:51" hostname="NB3K5QJM2" time="81.541">
   <properties/>
-  <testcase name="ValidateOldMutualFinance" classname="OldMutualFinanceTest" time="39.627"/>
+  <testcase name="ValidateOldMutualFinance[0](public void OldMutualFinanceTest.ValidateOldMutualFinance(java.lang.reflect.Method))" classname="OldMutualFinanceTest" time="81.541"/>
   <system-out><![CDATA[Repayment = R1 656.43 - R1 810.05
 min = R1 656.43
 max = R1 810.05

@@ -19,13 +19,16 @@ import java.util.concurrent.TimeUnit;
 public class Base {
     public static WebDriver driver;
     public static ChromeOptions options;
-    String selectedBrowser = "Chrome";
+    public static String selectedBrowser = System.getProperty("BROWSER");
     public static final Logger LOGGER = LoggerFactory.getLogger(Base.class);
+
+    public WebDriver getDriver() {
+        return driver;
+    }
     @BeforeClass
     public static void setupWebdriverChromeDriver() throws IOException {
 //        System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "/drivers/chromedriver");
-        System.setProperty("webdriver.chrome.driver", "chromedriver");
-        log("\n'browser on local machine initiated \n","INFO",  "text");
+
 
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 
@@ -48,10 +51,12 @@ public class Base {
 
         if ("Firefox".equals(selectedBrowser))
         {
+            System.setProperty("webdriver.gecko.driver", "drivers/geckodriver.exe");
             driver = new FirefoxDriver();
         }
         else if ("Chrome".equals(selectedBrowser))
         {
+            System.setProperty("webdriver.chrome.driver", "drivers/chromedriver.exe");
             options = new ChromeOptions();
             options.addArguments("--disable-extensions");
             options.addArguments("disable-infobars");
@@ -70,18 +75,7 @@ public class Base {
         }
 
     }
-    public static void logger(final String message, final String level, String format) {
 
-            LOGGER.info(message); //To print on the console
 
-    }
-    public static void log(final String message, final String level, String format) {
 
-        try {
-            logger(message, level, format);
-        }
-        catch (Exception err) {
-            logger(message, level, "text");
-        }
-    }
 }

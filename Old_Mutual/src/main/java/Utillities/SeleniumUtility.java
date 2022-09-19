@@ -1,7 +1,8 @@
 package Utillities;
+import com.aventstack.extentreports.Status;
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 import Engine.Base;
-import io.qameta.allure.Allure;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -9,25 +10,34 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.ITestResult;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
+
+import static Utillities.ExtentTestManager.getTest;
 
 public class SeleniumUtility extends Base
 {
     public static int WaitTimeout = 6;
 
-    public static void attachScreenShot(String description) {
 
+    public static void takeSnapShot(WebDriver webdriver,String fileWithPath)
+    {
         try {
-            Allure.addAttachment(description, new ByteArrayInputStream(((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES))); // get screenshot from somewhere
-        }
-        catch(Exception e) {
 
+            TakesScreenshot scrShot = ((TakesScreenshot) webdriver);
+            File SrcFile = scrShot.getScreenshotAs(OutputType.FILE);
+            File DestFile = new File(fileWithPath);
+            FileUtils.copyFile(SrcFile, DestFile);
+        }
+        catch (Exception e)
+        {
+            Assert.fail("\n[ERROR] Failed to take screenshot" + e.getMessage());
         }
     }
-
     public static void clickElementBy(By element, String errorMessage)
     {
         try
@@ -36,7 +46,6 @@ public class SeleniumUtility extends Base
             elementToClick.click();
         }
         catch(Exception e) {
-            attachScreenShot("\n[ERROR] Failed to click on element  ---  " + element); //take screenshot when action fails
             Assert.fail("\n[ERROR] Failed to click on element  ---  " + element + "' - " + e.getMessage());
         }
     }
@@ -50,11 +59,8 @@ public class SeleniumUtility extends Base
             actions.moveToElement(ele);
             actions.click();
             actions.perform();
-
-            log("Clicked element by Xpath : " + element, "INFO",  "text");
         }
         catch (Exception e) {
-            log(errorMessage, "ERROR",  "text");
             Assert.fail("\n[ERROR] Failed to click on element --- " + element + "' - " + e.getMessage());
         }
     }
@@ -68,7 +74,6 @@ public class SeleniumUtility extends Base
 
         }
         catch (Exception e) {
-            log(errorMessage, "ERROR",  "text");
             Assert.fail("\n[ERROR] Failed to Move Over And Click on element ---- " + e.getMessage());
         }
     }
@@ -82,7 +87,6 @@ public class SeleniumUtility extends Base
 
         }
         catch (Exception e) {
-            log(errorMessage, "ERROR",  "text");
             Assert.fail("\n[ERROR] Failed to Move Over And Click on element ---- " + e.getMessage());
         }
     }
@@ -98,7 +102,6 @@ public class SeleniumUtility extends Base
             sub_menu.click();
         }
         catch (Exception e) {
-            log(errorMessage, "ERROR",  "text");
             Assert.fail("\n[ERROR] Failed to Move Over And Click on element ---- " + e.getMessage());
         }
     }
@@ -111,12 +114,10 @@ public class SeleniumUtility extends Base
             WebElement elementToRead = driver.findElement(By.xpath(elementXpath));
             retrievedText = elementToRead.getText();
 
-            log("Text : " + retrievedText + " retrieved from element by Xpath - " + elementXpath, "INFO",  "text");
 
             return retrievedText;
         }
         catch (Exception e) {
-            log(errorMessage, "ERROR",  "text");
             Assert.fail("\n[ERROR] Failed to retrieve text from element - " + elementXpath + " - " + e.getMessage());
 
             return retrievedText;
@@ -129,7 +130,6 @@ public class SeleniumUtility extends Base
             Thread.sleep(millisecondsWait);
         }
         catch (Exception e) {
-            log("Failed to pause", "ERROR",  "text");
             Assert.fail("\n[ERROR] Failed to pause --- " + e.getMessage());
         }
     }
@@ -147,26 +147,20 @@ public class SeleniumUtility extends Base
                     wait.until(ExpectedConditions.elementToBeClickable(element));
                     if (wait.until(ExpectedConditions.visibilityOfElementLocated(element)) != null) {
                         elementFound = true;
-                        log("Found element : " + element,"INFO",  "text");
                         break;
                     }
                 }
                 catch (Exception e) {
                     elementFound = false;
-                    log("Did Not Find element : " + element, "ERROR",  "text");
                 }
                 waitCount++;
             }
             if (waitCount == WaitTimeout) {
                 GetElementFound(elementFound);
-                log(errorMessage, "INFO",  "text");
-                attachScreenShot("\n[ERROR] Reached TimeOut whilst waiting for element by : '" + element);
                 Assert.fail("\n[ERROR] Reached TimeOut whilst waiting for element by : '" + element + "'");
             }
         }
         catch (Exception e) {
-            log(errorMessage, "ERROR",  "text");
-            attachScreenShot("\n[ERROR] Failed to wait for element by --- " + element);
             Assert.fail("\n[ERROR] Failed to wait for element by --- " + element + "' - " + e.getMessage());
         }
 
@@ -187,26 +181,20 @@ public class SeleniumUtility extends Base
                     wait.until(ExpectedConditions.elementToBeClickable(By.xpath(elementXpath)));
                     if (wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(elementXpath))) != null) {
                         elementFound = true;
-                        log("Found element by Xpath : " + elementXpath,"INFO",  "text");
                         break;
                     }
                 }
                 catch (Exception e) {
                     elementFound = false;
-                    log("Did Not Find element by Xpath: " + elementXpath, "ERROR",  "text");
                 }
                 waitCount++;
             }
             if (waitCount == WaitTimeout) {
                 GetElementFound(elementFound);
-                log(errorMessage, "INFO",  "text");
-                attachScreenShot("\n[ERROR] Reached TimeOut whilst waiting for element by Xpath: '" + elementXpath);
                 Assert.fail("\n[ERROR] Reached TimeOut whilst waiting for element by Xpath: '" + elementXpath + "'");
             }
         }
         catch (Exception e) {
-            log(errorMessage, "ERROR",  "text");
-            attachScreenShot("\n[ERROR] Failed to wait for element by Xpath --- " + elementXpath);
             Assert.fail("\n[ERROR] Failed to wait for element by Xpath --- " + elementXpath + "' - " + e.getMessage());
         }
 
@@ -238,13 +226,10 @@ public class SeleniumUtility extends Base
         }
         catch (Exception e) {
             elementDisplayed = false;
-            log(errorMessage, "ERROR", "text");
-            attachScreenShot("\n[ERROR] Failed to wait for element to be displayed: '" + element);
             Assert.fail("\n[ERROR] Failed to wait for element to be displayed: '" + element);
         }
 
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-
         GetElementFound(elementDisplayed);
     }
 
@@ -260,12 +245,8 @@ public class SeleniumUtility extends Base
             Thread.sleep(2000);
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
             wait.until(expectation);
-
-            log("Waited Page to load successfully", "INFO",  "text");
         }
         catch (Throwable error) {
-            log("\n[ERROR] Timeout waiting for Page Load Request to complete.", "ERROR",  "text");
-            attachScreenShot("\n[ERROR] Timeout waiting for Page Load Request to complete."); //take screenshot when action fails
             Assert.fail("\n[ERROR] Timeout waiting for Page Load Request to complete.");
         }
     }
