@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="TestImplementation" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-09-19T04:38:47" hostname="NB3K5QJM2" time="7.994">
+  <properties/>
+  <testcase name="getOldMutualTitle" classname="TestImplementation" time="7.994"/>
+  <system-out><![CDATA[Title Old Mutual: Investments, Insurance, Loans and Unit Trusts
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
