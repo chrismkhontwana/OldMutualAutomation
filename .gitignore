@@ -8,3 +8,6 @@ Old_Mutual/target/allure-results/57864207-61a1-45c3-9b5c-d5827beb79e3-testsuite.
 Old_Mutual/target/allure-results/a01fbfe6-a566-47da-ac76-37bb300a44ff-testsuite.xml
 Old_Mutual/target/allure-results/f2475f15-ee73-425c-8852-69ce9912ae46-testsuite.xml
 Old_Mutual/drivers/
+.DS_Store
+chromedriver.exe
+geckodriver.exe
