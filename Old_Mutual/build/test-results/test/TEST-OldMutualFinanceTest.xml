@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="OldMutualFinanceTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-09-19T08:20:34" hostname="NB3K5QJM2" time="8.936">
+<testsuite name="OldMutualFinanceTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-09-19T16:06:48" hostname="NB3K5QJM2" time="39.627">
   <properties/>
-  <testcase name="ValidateOldMutualFinanceTitle" classname="OldMutualFinanceTest" time="8.936"/>
-  <system-out><![CDATA[Title = Bank and Borrow Solutions | Old Mutual
+  <testcase name="ValidateOldMutualFinance" classname="OldMutualFinanceTest" time="39.627"/>
+  <system-out><![CDATA[Repayment = R1 656.43 - R1 810.05
+min = R1 656.43
+max = R1 810.05
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
