@@ -9,13 +9,19 @@ import org.openqa.selenium.remote.CapabilityType;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+
 
 public class Base {
     public static WebDriver driver;
     public static ChromeOptions options;
-     String selectedBrowser = "Chrome";
+    String selectedBrowser = "Chrome";
+    public static final Logger LOGGER = LoggerFactory.getLogger(Base.class);
     @BeforeClass
-    public static void setupWebdriverChromeDriver() {
+    public static void setupWebdriverChromeDriver() throws IOException {
 //        System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "/drivers/chromedriver");
         System.setProperty("webdriver.chrome.driver", "chromedriver");
 
@@ -59,5 +65,19 @@ public class Base {
             driver = new ChromeDriver(options);
         }
 
+    }
+    public static void logger(final String message, final String level, String format) {
+
+            LOGGER.info(message); //To print on the console
+
+    }
+    public static void log(final String message, final String level, String format) {
+
+        try {
+            logger(message, level, format);
+        }
+        catch (Exception err) {
+            logger(message, level, "text");
+        }
     }
 }
