@@ -45,6 +45,9 @@ dependencies {
     implementation group: 'ru.yandex.qatools.allure', name: 'allure-testng-adaptor', version: '1.5.4'
     implementation group: 'ru.yandex.qatools.allure', name: 'allure-java-annotations', version: '1.5.4'
 
+    implementation group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.1'
+
+
 
 
 

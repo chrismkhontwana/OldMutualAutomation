@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 
 public class Base {
@@ -24,6 +25,9 @@ public class Base {
     public static void setupWebdriverChromeDriver() throws IOException {
 //        System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "/drivers/chromedriver");
         System.setProperty("webdriver.chrome.driver", "chromedriver");
+        log("\n'browser on local machine initiated \n","INFO",  "text");
+
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 
     }
 

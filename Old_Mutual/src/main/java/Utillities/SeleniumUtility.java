@@ -18,6 +18,7 @@ public class SeleniumUtility extends Base
 {
     public static int WaitTimeout = 6;
 
+
     //region <attachScreenShot>
     /**
      * To take screenshot
@@ -40,8 +41,6 @@ public class SeleniumUtility extends Base
         try {
             WebElement elementToClick = driver.findElement(element);
             elementToClick.click();
-
-//            Assert.assertTrue("Clicked element : " + element, true);
         }
         catch(Exception e) {
             attachScreenShot("\n[ERROR] Failed to click on element  ---  " + element); //take screenshot when action fails
