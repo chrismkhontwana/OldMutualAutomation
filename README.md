@@ -5,7 +5,6 @@ Old mutual automation tests
 - [Authors](#authors)
 - [Pre-requisites](#pre-requisites)
 - [Libraries](#libraries)
-- [Drivers] (#drivers)
 - [How to execute framework]
 - [Screenshot]
 - [Test results]
@@ -26,9 +25,6 @@ You should download and install these properly on your system. Visit the website
 ## Libraries
 * Libraries are downloaded automaticaly when you sync Gradle 
 
-## Drivers
-* [Chromedriver](https://chromedriver.chromium.org/downloads)
-* [Geckodriver](https://github.com/mozilla/geckodriver/releases)
 
 ## How to execute framework
 1. Download and extract drivers in the project folder
