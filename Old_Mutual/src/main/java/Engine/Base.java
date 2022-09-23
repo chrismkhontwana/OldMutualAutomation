@@ -1,5 +1,6 @@
 package Engine;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.UnexpectedAlertBehaviour;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -27,9 +28,9 @@ public class Base {
     }
     @BeforeClass
     public static void setupWebdriverChromeDriver() throws IOException {
-//        System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "/drivers/chromedriver");
 
-
+        WebDriverManager.chromedriver().setup();
+        WebDriverManager.firefoxdriver().setup();
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 
     }
@@ -51,12 +52,10 @@ public class Base {
 
         if ("Firefox".equals(selectedBrowser))
         {
-            System.setProperty("webdriver.gecko.driver", "geckodriver.exe");
             driver = new FirefoxDriver();
         }
         else if ("Chrome".equals(selectedBrowser))
         {
-            System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
             options = new ChromeOptions();
             options.addArguments("--disable-extensions");
             options.addArguments("disable-infobars");
@@ -70,7 +69,6 @@ public class Base {
             options.addArguments("--start-maximized");
             options.setCapability(ChromeOptions.CAPABILITY, options);
             options.setCapability(CapabilityType.UNEXPECTED_ALERT_BEHAVIOUR, UnexpectedAlertBehaviour.IGNORE);
-
             driver = new ChromeDriver(options);
         }
 
